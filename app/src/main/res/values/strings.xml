@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Quick Report</string>
+    <string name="developer">©Developed by <b>KARTIK</b></string>
 </resources>

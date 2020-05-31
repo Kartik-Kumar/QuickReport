@@ -37,9 +37,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView bTemp,heartbeat,eTemp;
     private ImageView tempOK,heartbeatOK,ecgimage;
 
-    private StorageReference mStorageRef=FirebaseStorage.getInstance().getReference("ecg/boom.png");
+    private StorageReference mStorageRef=FirebaseStorage.getInstance().getReference("ecg/boom.jpg");
     private DatabaseReference mDatabase= FirebaseDatabase.getInstance().getReference();
-    //mStorageRef = FirebaseStorage.getInstance().getReference().child("tiles");
     private String st,bt,bb;
 
     @Override
@@ -97,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void onSuccess(Uri uri) {
                         Log.d("uri",""+uri);
-                        Picasso.get().load(uri).fit().centerCrop().into(ecgimage);
+                        Picasso.get().load(uri).fit().into(ecgimage);
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -122,6 +121,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         bTemp.setText(bt);
                         eTemp.setText(st);
                         heartbeat.setText(bb);
+                        if (Double.valueOf(bTemp.getText().toString())>97.0){
+
+                            tempOK.setImageResource(R.drawable.wrong);
+                        }
+                        else tempOK.setImageResource(R.drawable.feedback);
+                        if(Integer.valueOf(heartbeat.getText().toString())>120 || Integer.valueOf(heartbeat.getText().toString())<70){
+
+                            heartbeatOK.setImageResource(R.drawable.wrong);
+                        }else
+                            heartbeatOK.setImageResource(R.drawable.feedback);
                     }
 
                     @Override
